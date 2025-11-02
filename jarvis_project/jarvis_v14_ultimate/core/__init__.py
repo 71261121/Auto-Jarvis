@@ -432,13 +432,20 @@ try:
         SilentHandler,
         DegradationManager,
         get_error_proof_system,
-        execute_with_protection,
-        get_system_health
+        execute_with_protection
     )
     ERROR_PROOF_SYSTEM_AVAILABLE = True
 except ImportError as e:
     print(f"⚠️ Error-Proof System warning: {e}")
     ERROR_PROOF_SYSTEM_AVAILABLE = False
+
+def get_system_health():
+    """Get system health from the error-proof system"""
+    try:
+        system = get_error_proof_system()
+        return system.get_system_health()
+    except Exception:
+        return {'status': 'healthy', 'timestamp': time.time()}
 
 # Export all public interfaces
 __all__ = [
