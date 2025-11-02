@@ -2646,29 +2646,28 @@ class ProactiveResolver:
         """Scan for potential issues proactively"""
         try:
             # Check system health
-            if PSUTIL_AVAILABLE:
-                memory = psutil.virtual_memory()
-                cpu = psutil.cpu_percent()
-                disk = psutil.disk_usage('/')
-                
-                # Memory issues
-                if memory.percent > 80:
-                    self._queue_proactive_action('memory_cleanup', {'memory_percent': memory.percent})
-                
-                # CPU issues
-                if cpu > 85:
-                    self._queue_proactive_action('performance_optimization', {'cpu_percent': cpu})
-                
-                # Disk issues
-                if disk.percent > 90:
-                    self._queue_proactive_action('disk_cleanup', {'disk_percent': disk.percent})
-            
+            memory = system_monitor.virtual_memory()
+            cpu = system_monitor.cpu_percent()
+            disk = system_monitor.disk_usage('/')
+
+            # Memory issues
+            if memory['percent'] > 80:
+                self._queue_proactive_action('memory_cleanup', {'memory_percent': memory['percent']})
+
+            # CPU issues
+            if cpu > 85:
+                self._queue_proactive_action('performance_optimization', {'cpu_percent': cpu})
+
+            # Disk issues
+            if disk['percent'] > 90:
+                self._queue_proactive_action('disk_cleanup', {'disk_percent': disk['percent']})
+
             # Check error patterns
             self._scan_error_patterns()
-            
+
             # Process resolution queue
             self._process_resolution_queue()
-        
+
         except Exception:
             pass
     
