@@ -985,11 +985,10 @@ class DashboardRenderer:
                 
                 const componentDiv = document.createElement('div');
                 componentDiv.className = 'component-item';
-                componentDiv.innerHTML = `
-                    <div class="status-indicator ${{statusClass}}"></div>
-                    <div>${{name}}</div>
-                    <div style="font-size: 0.8rem; opacity: 0.7;">${{component.status}}</div>
-                `;
+                componentDiv.innerHTML =
+                    '<div class="status-indicator ' + statusClass + '"></div>' +
+                    '<div>' + name + '</div>' +
+                    '<div style="font-size: 0.8rem; opacity: 0.7;">' + component.status + '</div>';
                 componentStatus.appendChild(componentDiv);
             }});
         }}
