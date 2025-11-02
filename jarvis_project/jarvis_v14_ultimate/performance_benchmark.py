@@ -30,6 +30,7 @@ import sqlite3
 import statistics
 import subprocess
 import gc
+import gzip
 import tracemalloc
 from pathlib import Path
 from typing import Dict, List, Optional, Any, Union, Callable, Tuple
