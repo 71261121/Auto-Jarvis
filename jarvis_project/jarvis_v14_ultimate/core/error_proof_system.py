@@ -1952,24 +1952,21 @@ class ErrorProofManager:
     def _analyze_resource_status(self) -> str:
         """Analyze resource status"""
         try:
-            if PSUTIL_AVAILABLE:
-                resources = {
-                    'cpu': psutil.cpu_percent(),
-                    'memory': psutil.virtual_memory().percent,
-                    'disk': psutil.disk_usage('/').percent
-                }
-                
-                critical_resources = sum(1 for v in resources.values() if v > 90)
-                warning_resources = sum(1 for v in resources.values() if v > 70)
-                
-                if critical_resources > 0:
-                    return 'critical'
-                elif warning_resources > 0:
-                    return 'warning'
-                else:
-                    return 'normal'
-            
-            return 'unknown'
+            resources = {
+                'cpu': system_monitor.cpu_percent(),
+                'memory': system_monitor.virtual_memory()['percent'],
+                'disk': system_monitor.disk_usage()['percent']
+            }
+
+            critical_resources = sum(1 for v in resources.values() if v > 90)
+            warning_resources = sum(1 for v in resources.values() if v > 70)
+
+            if critical_resources > 0:
+                return 'critical'
+            elif warning_resources > 0:
+                return 'warning'
+            else:
+                return 'normal'
         except Exception:
             return 'unknown'
     
