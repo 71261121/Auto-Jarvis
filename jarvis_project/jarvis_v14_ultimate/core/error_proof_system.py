@@ -2224,10 +2224,8 @@ class ErrorPredictor:
     def _predict_cpu_pressure(self, system_state: Dict[str, Any]) -> bool:
         """Predict CPU pressure"""
         try:
-            if PSUTIL_AVAILABLE:
-                cpu = psutil.cpu_percent()
-                return cpu > 85
-            return False
+            cpu = system_monitor.cpu_percent()
+            return cpu > 85
         except Exception:
             return False
     
