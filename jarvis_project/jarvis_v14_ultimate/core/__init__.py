@@ -440,6 +440,22 @@ except ImportError as e:
     print(f"⚠️ Error-Proof System warning: {e}")
     ERROR_PROOF_SYSTEM_AVAILABLE = False
 
+# Import Termux Native AI Engine
+try:
+    from .termux_native_ai_engine import (
+        TermuxAIEngine,
+        OpenRouterConfig,
+        AIRequest,
+        AIResponse,
+        get_ai_engine,
+        quick_response,
+        smart_analyze
+    )
+    TERMUX_AI_ENGINE_AVAILABLE = True
+except ImportError as e:
+    print(f"⚠️ Termux AI Engine warning: {e}")
+    TERMUX_AI_ENGINE_AVAILABLE = False
+
 def get_system_health():
     """Get system health from the error-proof system"""
     try:
@@ -447,6 +463,17 @@ def get_system_health():
         return system.get_system_health()
     except Exception:
         return {'status': 'healthy', 'timestamp': time.time()}
+
+def get_ai_response(prompt: str, api_key: str = None, **kwargs) -> str:
+    """Get AI response using the Termux AI engine"""
+    try:
+        if TERMUX_AI_ENGINE_AVAILABLE:
+            engine = get_ai_engine(api_key)
+            response = engine.generate_response(prompt, **kwargs)
+            return response.content if response.success else ""
+        return "AI engine not available"
+    except Exception:
+        return "AI response failed"
 
 # Export all public interfaces
 __all__ = [
