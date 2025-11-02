@@ -342,7 +342,7 @@ class PerformanceBenchmark:
                         'temperature': battery_data.get('temperature'),
                         'plugged': battery_data.get('plugged')
                     }
-            except:
+            except Exception:
                 pass
                 
             # Fallback to simple battery simulation
