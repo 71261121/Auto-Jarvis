@@ -455,19 +455,78 @@ class ErrorProofManager:
     def _monitor_system_health(self):
         """Monitor system health metrics"""
         try:
-            if PSUTIL_AVAILABLE:
-                cpu_percent = psutil.cpu_percent(interval=0.1)
-                memory_percent = psutil.virtual_memory().percent
-                disk_percent = psutil.disk_usage('/').percent
-                
-                if cpu_percent > 90:
-                    self._trigger_performance_recovery()
-                if memory_percent > 90:
-                    self._trigger_memory_recovery()
-                if disk_percent > 95:
-                    self._trigger_disk_recovery()
+            # Use built-in system monitoring for Termux compatibility
+            cpu_percent = self._get_cpu_usage()
+            memory_percent = self._get_memory_usage()
+            disk_percent = self._get_disk_usage()
+
+            if cpu_percent > 90:
+                self._trigger_performance_recovery()
+            if memory_percent > 90:
+                self._trigger_memory_recovery()
+            if disk_percent > 95:
+                self._trigger_disk_recovery()
         except Exception:
             pass
+
+    def _get_cpu_usage(self) -> float:
+        """Get CPU usage percentage without psutil"""
+        try:
+            if PSUTIL_AVAILABLE:
+                return psutil.cpu_percent(interval=0.1)
+            else:
+                # Simple CPU usage estimation based on system load
+                try:
+                    with open('/proc/loadavg', 'r') as f:
+                        load_avg = float(f.read().split()[0])
+                    return min(100.0, load_avg * 100)
+                except:
+                    return 25.0  # Default assumption
+        except:
+            return 25.0
+
+    def _get_memory_usage(self) -> float:
+        """Get memory usage percentage without psutil"""
+        try:
+            if PSUTIL_AVAILABLE:
+                return psutil.virtual_memory().percent
+            else:
+                # Read memory info from /proc/meminfo
+                try:
+                    with open('/proc/meminfo', 'r') as f:
+                        meminfo = f.read()
+
+                    total_mem = 0
+                    available_mem = 0
+
+                    for line in meminfo.split('\n'):
+                        if line.startswith('MemTotal:'):
+                            total_mem = int(line.split()[1])
+                        elif line.startswith('MemAvailable:'):
+                            available_mem = int(line.split()[1])
+
+                    if total_mem > 0:
+                        used_mem = total_mem - available_mem
+                        return (used_mem / total_mem) * 100
+                except:
+                    pass
+                return 50.0  # Default assumption
+        except:
+            return 50.0
+
+    def _get_disk_usage(self) -> float:
+        """Get disk usage percentage without psutil"""
+        try:
+            if PSUTIL_AVAILABLE:
+                return psutil.disk_usage('/').percent
+            else:
+                # Use Python's built-in shutil to get disk usage
+                usage = shutil.disk_usage('/')
+                if usage.total > 0:
+                    return (usage.used / usage.total) * 100
+                return 30.0  # Default assumption
+        except:
+            return 30.0
     
     def _predict_potential_errors(self):
         """Predict potential errors before they occur"""
