@@ -419,13 +419,34 @@ def get_package_statistics():
     except Exception:
         return {"status": "statistics_unavailable"}
 
+# Import Error-Proof System components
+try:
+    from .error_proof_system import (
+        JarvisErrorProofSystem,
+        ErrorProofManager,
+        FallbackSystem,
+        ErrorPredictor,
+        RecoverySystem,
+        ErrorLearningEngine,
+        ProactiveResolver,
+        SilentHandler,
+        DegradationManager,
+        get_error_proof_system,
+        execute_with_protection,
+        get_system_health
+    )
+    ERROR_PROOF_SYSTEM_AVAILABLE = True
+except ImportError as e:
+    print(f"⚠️ Error-Proof System warning: {e}")
+    ERROR_PROOF_SYSTEM_AVAILABLE = False
+
 # Export all public interfaces
 __all__ = [
     # Main Integration Classes
     'UltimateTermuxIntegration',
-    'UltimateTermuxIntegrationExtended', 
+    'UltimateTermuxIntegrationExtended',
     'UltimateTermuxIntegrationComplete',
-    
+
     # Advanced Auto-Execution System Classes
     'AdvancedAutoExecutionSystemV14',
     'ProjectDiscoveryEngine',
@@ -439,17 +460,28 @@ __all__ = [
     'SilentMonitor',
     'HealthTracker',
     'AdaptiveStrategy',
-    
+
     # Language Handlers
     'PythonLanguageHandler',
     'JavaScriptLanguageHandler',
     'JavaLanguageHandler',
-    
+
+    # Error-Proof System Classes
+    'JarvisErrorProofSystem',
+    'ErrorProofManager',
+    'FallbackSystem',
+    'ErrorPredictor',
+    'RecoverySystem',
+    'ErrorLearningEngine',
+    'ProactiveResolver',
+    'SilentHandler',
+    'DegradationManager',
+
     # Configuration
     'TermuxConfig',
     'DeviceInfo',
     'DeviceCapabilities',
-    
+
     # Core Functions
     'detect_termux_environment',
     'detect_device_capabilities',
@@ -459,17 +491,22 @@ __all__ = [
     'mobile_development_workflow_support',
     'termux_error_handler',
     'silent_operation_mode',
-    
+
     # Auto-Execution Functions
     'create_auto_execution_system',
     'start_auto_execution',
     'get_system_info',
-    
+
+    # Error-Proof Functions
+    'get_error_proof_system',
+    'execute_with_protection',
+    'get_system_health',
+
     # Main Entry Points
     'main',
     'main_extended',
     'main_complete',
-    
+
     # Utilities
     'get_system_health_score',
     'emergency_system_recovery',
@@ -479,7 +516,7 @@ __all__ = [
     'setup_termux_aliases',
     'create_termux_shortcuts',
     'setup_termux_shortcuts',
-    
+
     # Quick Access
     'get_integration_system',
     'quick_start',
