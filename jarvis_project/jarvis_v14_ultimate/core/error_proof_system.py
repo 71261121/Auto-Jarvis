@@ -1973,13 +1973,14 @@ class ErrorProofManager:
     def _analyze_environmental_factors(self) -> Dict[str, Any]:
         """Analyze environmental factors"""
         try:
+            load_avg = system_monitor.getloadavg()[0]
             factors = {
                 'timestamp': time.time(),
                 'hour_of_day': datetime.datetime.now().hour,
                 'day_of_week': datetime.datetime.now().weekday(),
-                'system_load': psutil.getloadavg()[0] if PSUTIL_AVAILABLE else 0
+                'system_load': load_avg
             }
-            
+
             return factors
         except Exception:
             return {}
