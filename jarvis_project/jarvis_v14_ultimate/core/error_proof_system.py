@@ -1823,11 +1823,10 @@ class ErrorProofManager:
     def _predict_memory_error(self):
         """Predict potential memory errors"""
         try:
-            if PSUTIL_AVAILABLE:
-                memory = psutil.virtual_memory()
-                if memory.percent > 85:
-                    # Predict memory error and apply preventive measures
-                    self._apply_memory_prevention()
+            memory = system_monitor.virtual_memory()
+            if memory['percent'] > 85:
+                # Predict memory error and apply preventive measures
+                self._apply_memory_prevention()
         except Exception:
             pass
     
