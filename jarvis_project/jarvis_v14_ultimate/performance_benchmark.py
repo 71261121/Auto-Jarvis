@@ -342,9 +342,9 @@ class PerformanceBenchmark:
                         'temperature': battery_data.get('temperature'),
                         'plugged': battery_data.get('plugged')
                     }
-            except Exception:
-                pass
-                
+                except Exception:
+                    pass
+
             # Fallback to simple battery simulation
             return {
                 'level': 85.0,  # Simulated
