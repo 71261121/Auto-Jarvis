@@ -2273,12 +2273,11 @@ class ErrorPredictor:
         """Prevent performance errors"""
         try:
             # Optimize performance
-            if PSUTIL_AVAILABLE:
-                cpu = psutil.cpu_percent()
-                if cpu > 80:
-                    # Reduce CPU-intensive operations
-                    pass  # Reduce workload
-            
+            cpu = system_monitor.cpu_percent()
+            if cpu > 80:
+                # Reduce CPU-intensive operations
+                pass  # Reduce workload
+
             return True
         except Exception:
             return False
