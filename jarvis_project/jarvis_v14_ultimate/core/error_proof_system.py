@@ -2232,10 +2232,8 @@ class ErrorPredictor:
     def _predict_disk_pressure(self, system_state: Dict[str, Any]) -> bool:
         """Predict disk pressure"""
         try:
-            if PSUTIL_AVAILABLE:
-                disk = psutil.disk_usage('/')
-                return disk.percent > 90
-            return False
+            disk = system_monitor.disk_usage('/')
+            return disk['percent'] > 90
         except Exception:
             return False
     
