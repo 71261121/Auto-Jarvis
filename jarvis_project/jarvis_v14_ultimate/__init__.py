@@ -64,7 +64,7 @@ def jarvis_health_check():
 __all__ = [
     'JarvisErrorProofSystem',
     'ErrorProofManager',
-    'FallbackSystem', 
+    'FallbackSystem',
     'ErrorPredictor',
     'RecoverySystem',
     'ErrorLearningEngine',
@@ -74,5 +74,8 @@ __all__ = [
     'get_jarvis_error_system',
     'jarvis_execute',
     'jarvis_handle_error',
-    'jarvis_health_check'
+    'jarvis_health_check',
+    'get_ai_response',
+    'TermuxAIEngine',
+    'smart_analyze'
 ]
