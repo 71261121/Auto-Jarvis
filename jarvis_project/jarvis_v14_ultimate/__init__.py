@@ -35,7 +35,10 @@ from .core import (
     DegradationManager,
     get_error_proof_system,
     execute_with_protection,
-    get_system_health
+    get_system_health,
+    get_ai_response,
+    TermuxAIEngine,
+    smart_analyze
 )
 
 # Initialize global error-proof system
