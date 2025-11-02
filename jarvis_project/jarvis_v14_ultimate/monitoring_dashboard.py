@@ -485,8 +485,7 @@ class DashboardRenderer:
         
     def generate_dashboard_html(self) -> str:
         """Generate complete dashboard HTML"""
-        html = f"""
-<!DOCTYPE html>
+        html = """<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -495,66 +494,66 @@ class DashboardRenderer:
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/date-fns@2.29.3/index.min.js"></script>
     <style>
-        * {{
+        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-        }}
-        
-        body {{
+        }
+
+        body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
             color: white;
             min-height: 100vh;
-        }}
-        
-        .header {{
+        }
+
+        .header {
             background: rgba(0, 0, 0, 0.2);
             padding: 1rem 2rem;
             border-bottom: 2px solid rgba(255, 255, 255, 0.1);
-        }}
-        
-        .header h1 {{
+        }
+
+        .header h1 {
             font-size: 2rem;
             font-weight: 300;
             color: #00d4ff;
-        }}
-        
-        .header .status {{
+        }
+
+        .header .status {
             font-size: 0.9rem;
             opacity: 0.8;
             margin-top: 0.5rem;
-        }}
-        
-        .dashboard-grid {{
+        }
+
+        .dashboard-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
             gap: 1.5rem;
             padding: 2rem;
-        }}
-        
-        .dashboard-card {{
+        }
+
+        .dashboard-card {
             background: rgba(255, 255, 255, 0.1);
             border-radius: 15px;
             padding: 1.5rem;
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.2);
             transition: transform 0.3s ease;
-        }}
-        
-        .dashboard-card:hover {{
+        }
+
+        .dashboard-card:hover {
             transform: translateY(-5px);
-        }}
-        
-        .card-title {{
+        }
+
+        .card-title {
             font-size: 1.2rem;
             margin-bottom: 1rem;
             color: #00d4ff;
             border-bottom: 1px solid rgba(255, 255, 255, 0.2);
             padding-bottom: 0.5rem;
-        }}
-        
-        .metric-display {{
+        }
+
+        .metric-display {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -562,72 +561,72 @@ class DashboardRenderer:
             padding: 0.5rem;
             background: rgba(0, 0, 0, 0.2);
             border-radius: 8px;
-        }}
-        
-        .metric-label {{
+        }
+
+        .metric-label {
             font-weight: 500;
-        }}
-        
-        .metric-value {{
+        }
+
+        .metric-value {
             font-size: 1.2rem;
             font-weight: bold;
             color: #00ff88;
-        }}
-        
-        .status-indicator {{
+        }
+
+        .status-indicator {
             width: 12px;
             height: 12px;
             border-radius: 50%;
             display: inline-block;
             margin-right: 0.5rem;
-        }}
-        
-        .status-healthy {{ background-color: #00ff88; }}
-        .status-warning {{ background-color: #ffaa00; }}
-        .status-critical {{ background-color: #ff4444; }}
-        
-        .chart-container {{
+        }
+
+        .status-healthy { background-color: #00ff88; }
+        .status-warning { background-color: #ffaa00; }
+        .status-critical { background-color: #ff4444; }
+
+        .chart-container {
             position: relative;
             height: 300px;
             margin: 1rem 0;
-        }}
-        
-        .alert-list {{
+        }
+
+        .alert-list {
             max-height: 400px;
             overflow-y: auto;
-        }}
-        
-        .alert-item {{
+        }
+
+        .alert-item {
             background: rgba(0, 0, 0, 0.3);
             margin: 0.5rem 0;
             padding: 1rem;
             border-radius: 8px;
             border-left: 4px solid #ff4444;
-        }}
-        
-        .alert-item.warning {{
+        }
+
+        .alert-item.warning {
             border-left-color: #ffaa00;
-        }}
-        
-        .alert-item.info {{
+        }
+
+        .alert-item.info {
             border-left-color: #00d4ff;
-        }}
-        
-        .component-status {{
+        }
+
+        .component-status {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 1rem;
             margin: 1rem 0;
-        }}
-        
-        .component-item {{
+        }
+
+        .component-item {
             background: rgba(0, 0, 0, 0.2);
             padding: 1rem;
             border-radius: 8px;
             text-align: center;
-        }}
-        
-        .refresh-btn {{
+        }
+
+        .refresh-btn {
             background: linear-gradient(45deg, #00d4ff, #0099cc);
             color: white;
             border: none;
@@ -636,18 +635,18 @@ class DashboardRenderer:
             cursor: pointer;
             font-weight: 500;
             transition: transform 0.2s;
-        }}
-        
-        .refresh-btn:hover {{
+        }
+
+        .refresh-btn:hover {
             transform: scale(1.05);
-        }}
-        
-        .footer {{
+        }
+
+        .footer {
             text-align: center;
             padding: 2rem;
             opacity: 0.7;
             font-size: 0.9rem;
-        }}
+        }
     </style>
 </head>
 <body>
@@ -658,7 +657,7 @@ class DashboardRenderer:
             <button class="refresh-btn" onclick="refreshDashboard()">🔄 Refresh</button>
         </div>
     </div>
-    
+
     <div class="dashboard-grid">
         <!-- System Overview -->
         <div class="dashboard-card">
@@ -683,7 +682,7 @@ class DashboardRenderer:
                 <canvas id="systemChart"></canvas>
             </div>
         </div>
-        
+
         <!-- Component Status -->
         <div class="dashboard-card">
             <h2 class="card-title">⚙️ Component Status</h2>
@@ -691,7 +690,7 @@ class DashboardRenderer:
                 <!-- Component status items will be inserted here -->
             </div>
         </div>
-        
+
         <!-- Performance Metrics -->
         <div class="dashboard-card">
             <h2 class="card-title">⚡ Performance Metrics</h2>
@@ -699,7 +698,7 @@ class DashboardRenderer:
                 <canvas id="performanceChart"></canvas>
             </div>
         </div>
-        
+
         <!-- Active Alerts -->
         <div class="dashboard-card">
             <h2 class="card-title">🚨 Active Alerts</h2>
@@ -707,7 +706,7 @@ class DashboardRenderer:
                 <!-- Alert items will be inserted here -->
             </div>
         </div>
-        
+
         <!-- Network Activity -->
         <div class="dashboard-card">
             <h2 class="card-title">🌐 Network Activity</h2>
@@ -715,7 +714,7 @@ class DashboardRenderer:
                 <canvas id="networkChart"></canvas>
             </div>
         </div>
-        
+
         <!-- System Health Trends -->
         <div class="dashboard-card">
             <h2 class="card-title">📈 Health Trends</h2>
@@ -724,63 +723,63 @@ class DashboardRenderer:
             </div>
         </div>
     </div>
-    
+
     <div class="footer">
         JARVIS v14 Ultimate Monitoring Dashboard | Last Updated: <span id="lastUpdate">--</span>
     </div>
-    
+
     <script>
         // Dashboard JavaScript
         let systemChart, performanceChart, networkChart, healthTrendChart;
         let updateInterval;
-        
+
         // Initialize dashboard
-        document.addEventListener('DOMContentLoaded', function() {{
+        document.addEventListener('DOMContentLoaded', function() {
             initializeCharts();
             startAutoRefresh();
             updateDashboard();
-        }});
-        
-        function initializeCharts() {{
+        });
+
+        function initializeCharts() {
             // System Chart
             const systemCtx = document.getElementById('systemChart').getContext('2d');
-            systemChart = new Chart(systemCtx, {{
+            systemChart = new Chart(systemCtx, {
                 type: 'line',
-                data: {{
+                data: {
                     labels: [],
-                    datasets: [{{
+                    datasets: [{
                         label: 'CPU %',
                         data: [],
                         borderColor: '#00d4ff',
                         backgroundColor: 'rgba(0, 212, 255, 0.1)',
                         tension: 0.4
-                    }}, {{
+                    }, {
                         label: 'Memory %',
                         data: [],
                         borderColor: '#00ff88',
                         backgroundColor: 'rgba(0, 255, 136, 0.1)',
                         tension: 0.4
-                    }}]
-                }},
-                options: {{
+                    }]
+                },
+                options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    scales: {{
-                        y: {{
+                    scales: {
+                        y: {
                             beginAtZero: true,
                             max: 100
-                        }}
-                    }}
-                }}
-            }});
-            
+                        }
+                    }
+                }
+            });
+
             // Performance Chart
             const perfCtx = document.getElementById('performanceChart').getContext('2d');
-            performanceChart = new Chart(perfCtx, {{
+            performanceChart = new Chart(perfCtx, {
                 type: 'bar',
-                data: {{
+                data: {
                     labels: ['UltimateAI', 'TermuxIntegration', 'AutoExecution', 'PredictiveAI', 'ErrorProof'],
-                    datasets: [{{
+                    datasets: [{
                         label: 'Response Time (ms)',
                         data: [],
                         backgroundColor: [
@@ -790,179 +789,179 @@ class DashboardRenderer:
                             'rgba(255, 68, 68, 0.7)',
                             'rgba(153, 102, 255, 0.7)'
                         ]
-                    }}]
-                }},
-                options: {{
+                    }]
+                },
+                options: {
                     responsive: true,
                     maintainAspectRatio: false
-                }}
-            }});
-            
+                }
+            });
+
             // Network Chart
             const networkCtx = document.getElementById('networkChart').getContext('2d');
-            networkChart = new Chart(networkCtx, {{
+            networkChart = new Chart(networkCtx, {
                 type: 'line',
-                data: {{
+                data: {
                     labels: [],
-                    datasets: [{{
+                    datasets: [{
                         label: 'Bytes/sec',
                         data: [],
                         borderColor: '#ff6b6b',
                         backgroundColor: 'rgba(255, 107, 107, 0.1)',
                         tension: 0.4
-                    }}]
-                }},
-                options: {{
+                    }]
+                },
+                options: {
                     responsive: true,
                     maintainAspectRatio: false
-                }}
-            }});
-            
+                }
+            });
+
             // Health Trend Chart
             const healthCtx = document.getElementById('healthTrendChart').getContext('2d');
-            healthTrendChart = new Chart(healthCtx, {{
+            healthTrendChart = new Chart(healthCtx, {
                 type: 'line',
-                data: {{
+                data: {
                     labels: [],
-                    datasets: [{{
+                    datasets: [{
                         label: 'System Health Score',
                         data: [],
                         borderColor: '#00ff88',
                         backgroundColor: 'rgba(0, 255, 136, 0.1)',
                         tension: 0.4
-                    }}]
-                }},
-                options: {{
+                    }]
+                },
+                options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    scales: {{
-                        y: {{
+                    scales: {
+                        y: {
                             beginAtZero: true,
                             max: 100
-                        }}
-                    }}
-                }}
-            }});
-        }}
-        
-        function startAutoRefresh() {{
+                        }
+                    }
+                }
+            });
+        }
+
+        function startAutoRefresh() {
             updateInterval = setInterval(updateDashboard, 5000); // Update every 5 seconds
-        }}
-        
-        function refreshDashboard() {{
+        }
+
+        function refreshDashboard() {
             updateDashboard();
-        }}
-        
-        function updateDashboard() {{
+        }
+
+        function updateDashboard() {
             // Update system metrics
             fetch('/api/metrics')
                 .then(response => response.json())
-                .then(data => {{
+                .then(data => {
                     updateSystemMetrics(data);
                     updateCharts(data);
-                }})
+                })
                 .catch(error => console.error('Error fetching metrics:', error));
-            
+
             // Update alerts
             fetch('/api/alerts')
                 .then(response => response.json())
                 .then(data => updateAlerts(data))
                 .catch(error => console.error('Error fetching alerts:', error));
-            
+
             // Update components
             fetch('/api/components')
                 .then(response => response.json())
                 .then(data => updateComponents(data))
                 .catch(error => console.error('Error fetching components:', error));
-            
+
             // Update last update time
             document.getElementById('lastUpdate').textContent = new Date().toLocaleString();
-        }}
-        
-        function updateSystemMetrics(data) {{
+        }
+
+        function updateSystemMetrics(data) {
             const metrics = data.system || {};
             document.getElementById('cpuUsage').textContent = (metrics.cpu_usage || 0).toFixed(1) + '%';
             document.getElementById('memoryUsage').textContent = (metrics.memory_usage || 0).toFixed(1) + '%';
             document.getElementById('diskUsage').textContent = (metrics.disk_usage || 0).toFixed(1) + '%';
             document.getElementById('processCount').textContent = metrics.process_count || 0;
-        }}
-        
-        function updateCharts(data) {{
+        }
+
+        function updateCharts(data) {
             // Update system chart
             const now = new Date().toLocaleTimeString();
             const cpuData = data.system?.cpu_usage || 0;
             const memoryData = data.system?.memory_usage || 0;
-            
-            if (systemChart.data.labels.length >= 20) {{
+
+            if (systemChart.data.labels.length >= 20) {
                 systemChart.data.labels.shift();
                 systemChart.data.datasets[0].data.shift();
                 systemChart.data.datasets[1].data.shift();
-            }}
-            
+            }
+
             systemChart.data.labels.push(now);
             systemChart.data.datasets[0].data.push(cpuData);
             systemChart.data.datasets[1].data.push(memoryData);
             systemChart.update();
-            
+
             // Update performance chart
             const components = data.components || {};
             const componentNames = Object.keys(components);
             const responseTimes = componentNames.map(name => components[name]?.response_time * 1000 || 0);
-            
+
             performanceChart.data.labels = componentNames;
             performanceChart.data.datasets[0].data = responseTimes;
             performanceChart.update();
-            
+
             // Update network chart
             const networkData = data.system?.network_io || 0;
-            
-            if (networkChart.data.labels.length >= 20) {{
+
+            if (networkChart.data.labels.length >= 20) {
                 networkChart.data.labels.shift();
                 networkChart.data.datasets[0].data.shift();
-            }}
-            
+            }
+
             networkChart.data.labels.push(now);
             networkChart.data.datasets[0].data.push(networkData / 1024 / 1024); // Convert to MB
             networkChart.update();
-            
+
             // Update health trend
             const healthScore = calculateHealthScore(data);
-            
-            if (healthTrendChart.data.labels.length >= 20) {{
+
+            if (healthTrendChart.data.labels.length >= 20) {
                 healthTrendChart.data.labels.shift();
                 healthTrendChart.data.datasets[0].data.shift();
-            }}
-            
+            }
+
             healthTrendChart.data.labels.push(now);
             healthTrendChart.data.datasets[0].data.push(healthScore);
             healthTrendChart.update();
-        }}
-        
-        function calculateHealthScore(data) {{
+        }
+
+        function calculateHealthScore(data) {
             let score = 100;
-            
+
             // Deduct points for high resource usage
             const cpu = data.system?.cpu_usage || 0;
             const memory = data.system?.memory_usage || 0;
             const disk = data.system?.disk_usage || 0;
-            
+
             if (cpu > 80) score -= (cpu - 80) * 2;
             if (memory > 85) score -= (memory - 85) * 2;
             if (disk > 90) score -= (disk - 90) * 2;
-            
+
             return Math.max(0, score);
-        }}
-        
-        function updateAlerts(alerts) {{
+        }
+
+        function updateAlerts(alerts) {
             const alertList = document.getElementById('alertList');
             alertList.innerHTML = '';
-            
-            if (alerts.length === 0) {{
+
+            if (alerts.length === 0) {
                 alertList.innerHTML = '<div style="text-align: center; opacity: 0.7;">No active alerts</div>';
                 return;
-            }}
-            
-            alerts.forEach(alert => {{
+            }
+
+            alerts.forEach(alert => {
                 const alertDiv = document.createElement('div');
                 alertDiv.className = 'alert-item ' + alert.severity;
                 alertDiv.innerHTML =
@@ -972,17 +971,17 @@ class DashboardRenderer:
                         new Date(alert.timestamp).toLocaleString() +
                     '</div>';
                 alertList.appendChild(alertDiv);
-            }});
-        }}
-        
-        function updateComponents(components) {{
+            });
+        }
+
+        function updateComponents(components) {
             const componentStatus = document.getElementById('componentStatus');
             componentStatus.innerHTML = '';
-            
-            Object.keys(components).forEach(name => {{
+
+            Object.keys(components).forEach(name => {
                 const component = components[name];
                 const statusClass = getStatusClass(component.status);
-                
+
                 const componentDiv = document.createElement('div');
                 componentDiv.className = 'component-item';
                 componentDiv.innerHTML =
@@ -990,21 +989,20 @@ class DashboardRenderer:
                     '<div>' + name + '</div>' +
                     '<div style="font-size: 0.8rem; opacity: 0.7;">' + component.status + '</div>';
                 componentStatus.appendChild(componentDiv);
-            }});
-        }}
-        
-        function getStatusClass(status) {{
-            switch(status) {{
+            });
+        }
+
+        function getStatusClass(status) {
+            switch(status) {
                 case 'healthy': return 'status-healthy';
                 case 'warning': return 'status-warning';
                 case 'critical': return 'status-critical';
                 default: return 'status-healthy';
-            }}
-        }}
+            }
+        }
     </script>
 </body>
-</html>
-        """
+</html>"""
         return html
     
     def start_dashboard_server(self):
