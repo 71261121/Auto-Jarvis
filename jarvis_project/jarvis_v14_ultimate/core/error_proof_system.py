@@ -1228,16 +1228,15 @@ class ErrorProofManager:
     def _cleanup_network_connections(self):
         """Clean up network connections"""
         try:
-            if PSUTIL_AVAILABLE:
-                # Close established network connections
-                connections = psutil.net_connections()
-                for conn in connections:
-                    if conn.status == 'ESTABLISHED' and conn.laddr:
-                        try:
-                            # Force close stale connections
-                            pass  # Limited ability to force close from user space
-                        except Exception:
-                            pass
+            # Close established network connections
+            connections = system_monitor.net_connections()
+            for conn in connections:
+                if isinstance(conn, dict) and conn.get('status') == 'ESTABLISHED':
+                    try:
+                        # Force close stale connections
+                        pass  # Limited ability to force close from user space
+                    except Exception:
+                        pass
         except Exception:
             pass
     
