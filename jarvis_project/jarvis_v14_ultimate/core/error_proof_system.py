@@ -1833,11 +1833,10 @@ class ErrorProofManager:
     def _predict_disk_error(self):
         """Predict potential disk errors"""
         try:
-            if PSUTIL_AVAILABLE:
-                disk = psutil.disk_usage('/')
-                if disk.percent > 90:
-                    # Predict disk error and apply preventive measures
-                    self._apply_disk_prevention()
+            disk = system_monitor.disk_usage('/')
+            if disk['percent'] > 90:
+                # Predict disk error and apply preventive measures
+                self._apply_disk_prevention()
         except Exception:
             pass
     
