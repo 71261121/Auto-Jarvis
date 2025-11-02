@@ -420,6 +420,7 @@ def get_package_statistics():
         return {"status": "statistics_unavailable"}
 
 # Import Error-Proof System components
+import time
 try:
     from .error_proof_system import (
         JarvisErrorProofSystem,
