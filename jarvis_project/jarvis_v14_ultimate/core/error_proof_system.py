@@ -532,20 +532,19 @@ class ErrorProofManager:
         """Predict potential errors before they occur"""
         try:
             # Monitor memory patterns
-            if PSUTIL_AVAILABLE:
-                memory_info = psutil.virtual_memory()
-                if memory_info.percent > 80:
-                    self._predict_memory_error()
-                
-                # Monitor disk patterns
-                disk_info = psutil.disk_usage('/')
-                if disk_info.percent > 85:
-                    self._predict_disk_error()
-                
-                # Monitor CPU patterns
-                cpu_info = psutil.cpu_percent(interval=0.1)
-                if cpu_info > 85:
-                    self._predict_cpu_error()
+            memory_percent = self._get_memory_usage()
+            if memory_percent > 80:
+                self._predict_memory_error()
+
+            # Monitor disk patterns
+            disk_percent = self._get_disk_usage()
+            if disk_percent > 85:
+                self._predict_disk_error()
+
+            # Monitor CPU patterns
+            cpu_percent = self._get_cpu_usage()
+            if cpu_percent > 85:
+                self._predict_cpu_error()
         except Exception:
             pass
     
