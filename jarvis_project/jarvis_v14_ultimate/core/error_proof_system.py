@@ -1937,18 +1937,15 @@ class ErrorProofManager:
     def _analyze_system_state(self) -> str:
         """Analyze current system state"""
         try:
-            if PSUTIL_AVAILABLE:
-                memory = psutil.virtual_memory()
-                cpu = psutil.cpu_percent()
-                
-                if memory.percent > 90 or cpu > 90:
-                    return 'critical'
-                elif memory.percent > 70 or cpu > 70:
-                    return 'warning'
-                else:
-                    return 'normal'
-            
-            return 'unknown'
+            memory = system_monitor.virtual_memory()
+            cpu = system_monitor.cpu_percent()
+
+            if memory['percent'] > 90 or cpu > 90:
+                return 'critical'
+            elif memory['percent'] > 70 or cpu > 70:
+                return 'warning'
+            else:
+                return 'normal'
         except Exception:
             return 'unknown'
     
