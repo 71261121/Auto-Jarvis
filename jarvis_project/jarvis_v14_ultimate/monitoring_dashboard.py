@@ -964,14 +964,13 @@ class DashboardRenderer:
             
             alerts.forEach(alert => {{
                 const alertDiv = document.createElement('div');
-                alertDiv.className = `alert-item ${{alert.severity}}`;
-                alertDiv.innerHTML = `
-                    <div style="font-weight: bold;">${{alert.severity.toUpperCase()}} - ${{alert.component}}</div>
-                    <div>${{alert.message}}</div>
-                    <div style="font-size: 0.8rem; opacity: 0.7; margin-top: 0.5rem;">
-                        ${{new Date(alert.timestamp).toLocaleString()}}
-                    </div>
-                `;
+                alertDiv.className = 'alert-item ' + alert.severity;
+                alertDiv.innerHTML =
+                    '<div style="font-weight: bold;">' + alert.severity.toUpperCase() + ' - ' + alert.component + '</div>' +
+                    '<div>' + alert.message + '</div>' +
+                    '<div style="font-size: 0.8rem; opacity: 0.7; margin-top: 0.5rem;">' +
+                        new Date(alert.timestamp).toLocaleString() +
+                    '</div>';
                 alertList.appendChild(alertDiv);
             }});
         }}
