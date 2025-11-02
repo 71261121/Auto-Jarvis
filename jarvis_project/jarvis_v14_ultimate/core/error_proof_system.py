@@ -2216,10 +2216,8 @@ class ErrorPredictor:
     def _predict_memory_pressure(self, system_state: Dict[str, Any]) -> bool:
         """Predict memory pressure"""
         try:
-            if PSUTIL_AVAILABLE:
-                memory = psutil.virtual_memory()
-                return memory.percent > 85
-            return False
+            memory = system_monitor.virtual_memory()
+            return memory['percent'] > 85
         except Exception:
             return False
     
