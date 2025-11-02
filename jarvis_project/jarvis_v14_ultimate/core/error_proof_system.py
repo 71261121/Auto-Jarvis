@@ -1843,11 +1843,10 @@ class ErrorProofManager:
     def _predict_cpu_error(self):
         """Predict potential CPU errors"""
         try:
-            if PSUTIL_AVAILABLE:
-                cpu = psutil.cpu_percent()
-                if cpu > 90:
-                    # Predict CPU error and apply preventive measures
-                    self._apply_cpu_prevention()
+            cpu = system_monitor.cpu_percent()
+            if cpu > 90:
+                # Predict CPU error and apply preventive measures
+                self._apply_cpu_prevention()
         except Exception:
             pass
     
