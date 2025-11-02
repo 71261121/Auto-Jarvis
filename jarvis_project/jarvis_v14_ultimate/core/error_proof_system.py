@@ -3289,12 +3289,11 @@ class JarvisErrorProofSystem:
             }
             
             # Add system resource information
-            if PSUTIL_AVAILABLE:
-                health_data.update({
-                    'cpu_percent': psutil.cpu_percent(),
-                    'memory_percent': psutil.virtual_memory().percent,
-                    'disk_percent': psutil.disk_usage('/').percent
-                })
+            health_data.update({
+                'cpu_percent': system_monitor.cpu_percent(),
+                'memory_percent': system_monitor.virtual_memory()['percent'],
+                'disk_percent': system_monitor.disk_usage()['percent']
+            })
             
             return health_data
         except Exception:
