@@ -23,7 +23,6 @@ import os
 import time
 import traceback
 import threading
-import pickle
 import json
 import hashlib
 import logging
@@ -32,9 +31,6 @@ import functools
 import inspect
 import weakref
 import gc
-import psutil
-import socket
-import requests
 import subprocess
 import tempfile
 import shutil
@@ -42,34 +38,27 @@ import re
 import math
 import random
 import datetime
-from typing import Any, Dict, List, Optional, Callable, Tuple, Union, Set, Iterator, Type, Generic, TypeVar, Awaitable
-from collections import defaultdict, deque, OrderedDict
-from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor, as_completed
-from dataclasses import dataclass, field
-from abc import ABC, abstractmethod
-from contextlib import contextmanager, suppress
-from io import StringIO
+import linecache
 import importlib
 import sysconfig
+from typing import Any, Dict, List, Optional, Callable, Tuple, Union, Set, Iterator, Type, Generic, TypeVar, Awaitable
+from collections import defaultdict, deque, OrderedDict
+from contextlib import contextmanager, suppress
+from io import StringIO
+from dataclasses import dataclass, field
+from abc import ABC, abstractmethod
 
-# Advanced imports for sophisticated error handling
+# Termux-compatible system monitoring
+PSUTIL_AVAILABLE = False
+MEMORY_PROFILER_AVAILABLE = False
+LINE_CACHE_AVAILABLE = True
+
+# Try to import psutil for advanced monitoring (optional)
 try:
     import psutil
     PSUTIL_AVAILABLE = True
 except ImportError:
-    PSUTIL_AVAILABLE = False
-
-try:
-    import memory_profiler
-    MEMORY_PROFILER_AVAILABLE = True
-except ImportError:
-    MEMORY_PROFILER_AVAILABLE = False
-
-try:
-    import linecache
-    LINE_CACHE_AVAILABLE = True
-except ImportError:
-    LINE_CACHE_AVAILABLE = False
+    pass  # psutil not available, will use built-in alternatives
 
 # Error tracking and learning
 T = TypeVar('T')
