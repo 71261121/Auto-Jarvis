@@ -1585,15 +1585,11 @@ class ErrorProofManager:
     def _analyze_resource_usage(self, error_info: ErrorInfo) -> Optional[Dict[str, Any]]:
         """Analyze resource usage patterns"""
         try:
-            resource_analysis = {}
-            
-            if PSUTIL_AVAILABLE:
-                resource_analysis.update({
-                    'cpu_percent': psutil.cpu_percent(),
-                    'memory_percent': psutil.virtual_memory().percent,
-                    'disk_percent': psutil.disk_usage('/').percent
-                })
-            
+            resource_analysis = {
+                'cpu_percent': system_monitor.cpu_percent(),
+                'memory_percent': system_monitor.virtual_memory()['percent'],
+                'disk_percent': system_monitor.disk_usage()['percent']
+            }
             return resource_analysis
         except Exception:
             return None
